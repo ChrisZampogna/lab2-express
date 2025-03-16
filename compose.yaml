@@ -2,31 +2,31 @@ name: lab2-express-js
 
 services:
 
+  # Container to running a node app
   node-application:
     container_name: node-application
     build:
       context: ./
       dockerfile: ./Dockerfile
     ports:
-      - "9000:3000"
+      # Map host port 9000 to container port 3000
+      - "9000:3000" 
+    environment:
+      # Express listens on port 3000 inside the container
+      EXPRESS_PORT: 3000
+      # App connects to the Mongo database running in the other container at this URL
+      MONGO_URL: mongodb://mongo:27017/
     restart: always
 
+  # Container running a local MongoDB instance
+  #
+  # WARNING: This database has NO authentication
+  # If it were exposed to the internet, then it should require a root user/password
+  # However, it is running locally
   mongo:
     container_name: mongo
+    ports:
+      # Map host port 27017 (default mongo port) to same container port
+      - "27017:27017"
     image: mongo
     restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-
-  mongo-express:
-    container_name: mongo-express
-    image: mongo-express
-    restart: always
-    ports:
-      - 8081:8081
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
-      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
-      ME_CONFIG_BASICAUTH: false
