@@ -23,7 +23,7 @@ const generateCRUD = function (router, modelName) {
     }
   });
 
-  // Read route (get)
+  // Read route (get) (All)
   router.get('/', async (req, res) => {
     try {
       const items = await Entity.find();
@@ -42,6 +42,27 @@ const generateCRUD = function (router, modelName) {
       });
     }
   });
+
+  // Read route (get) (by ID)
+  router.get('/:id', async (req, res) => {
+    try {
+      const items = await Entity.findById(req.params.id);
+      res.json({
+        "status": "success",
+        "data": {
+          items
+        }
+      });
+    } catch (err) {
+      res.status(500).json({
+        "status": "failure",
+        "data": {
+          "error": err.message
+        }
+      });
+    }
+  });
+
 
   // Update route (patch)
   router.patch('/:id', async (req, res) => {
