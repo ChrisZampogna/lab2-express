@@ -7,9 +7,19 @@ const generateCRUD = function (router, modelName) {
     try {
       console.log(req.body);
       const newEntity = await Entity.create(req.body);
-      res.status(201).json(newEntity);
+      res.status(201).json({
+        "status": "success",
+        "data": {
+          "_id": newEntity._id
+        }
+      });
     } catch (err) {
-      res.status(400).json({ message: err.message });
+      res.status(400).json({
+        "status": "failure",
+        "data": {
+          "error": err.message
+        }
+      });
     }
   });
 
@@ -17,9 +27,19 @@ const generateCRUD = function (router, modelName) {
   router.get('/', async (req, res) => {
     try {
       const items = await Entity.find();
-      res.json(items);
+      res.json({
+        "status": "success",
+        "data": {
+          items
+        }
+      });
     } catch (err) {
-      res.status(500).json({ message: err.message });
+      res.status(500).json({
+        "status": "failure",
+        "data": {
+          "error": err.message
+        }
+      });
     }
   });
 
@@ -27,9 +47,19 @@ const generateCRUD = function (router, modelName) {
   router.patch('/:id', async (req, res) => {
     try {
       const updatedEntity = await Entity.findByIdAndUpdate(req.params.id, req.body, { new: true });
-      res.json(updatedEntity);
+      res.json({
+        "status": "success",
+        "data": {
+          updatedEntity
+        }
+      });
     } catch (err) {
-      res.status(400).json({ message: err.message });
+      res.status(400).json({
+        "status": "failure",
+        "data": {
+          "error": err.message
+        }
+      });
     }
   });
 
@@ -37,9 +67,14 @@ const generateCRUD = function (router, modelName) {
   router.delete('/:id', async (req, res) => {
     try {
       await Entity.findByIdAndDelete(req.params.id);
-      res.json({ message: 'Entity deleted' });
+      res.json({ "status": "success" });
     } catch (err) {
-      res.status(400).json({ message: err.message });
+      res.status(400).json({
+        "status": "failure",
+        "data": {
+          "error": err.message
+        }
+      });
     }
   });
 }
