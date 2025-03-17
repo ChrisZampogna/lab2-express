@@ -24,7 +24,7 @@ const generateCRUD = function (router, modelName) {
   });
 
   // Read route (get) (All)
-  router.get('/', async (req, res) => {
+  router.get('/all', async (req, res) => {
     try {
       const items = await Entity.find();
       res.json({
