@@ -24,9 +24,9 @@ const generateCRUD = function (router, modelName) {
   });
 
   // Read route (get)
-  router.get('/', async (req, res) => {
+  router.get('/:id', async (req, res) => {
     try {
-      const items = await Entity.find();
+      const items = await Entity.findById(req.params.id);
       res.json({
         "status": "success",
         "data": {
