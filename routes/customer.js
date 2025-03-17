@@ -2,7 +2,23 @@ const express = require('express');
 const router = express.Router();
 const Customer = require(`../models/customer`);
 
-// Create route (post)
+   /**
+    * @swagger
+    * /customer:
+    *   post:
+    *     summary: Create a new customer
+    *     requestBody:
+    *       required: true
+    *       content:
+    *         application/json:
+    *           example:
+    *             Name: John,
+    *             MiddleName: B,
+    *             LastName: Smith,
+    *             Suffix: Sr,
+    *             Username: JohnSmith3,
+    *             Password: Password1
+    */
 router.post('/', async (req, res) => {
   try {
     console.log(req.body);
@@ -23,7 +39,14 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Read route (get) (All)
+   /**
+    * @swagger
+    * /customer:
+    *   get:
+    *     summary: Get a list of all customers
+    *     requestBody:
+    *       required: false
+    */
 router.get('/all', async (req, res) => {
   try {
     const items = await Customer.find();
@@ -43,7 +66,24 @@ router.get('/all', async (req, res) => {
   }
 });
 
-// Read route (get) (by ID)
+   /**
+    * @swagger
+    * /customer:
+    *   get:
+    *     summary: Get a customer by ID
+    *     requestBody:
+    *       required: true
+    *       content:
+    *         application/json:
+    *           example:
+    *             Id: John,
+    *             MiddleName: B,
+    *             LastName: Smith,
+    *             Suffix: Sr,
+    *             Username: JohnSmith3,
+    *             Password: Password1
+    */
+    */
 router.get('/:id', async (req, res) => {
   try {
     const items = await Customer.findById(req.params.id);
