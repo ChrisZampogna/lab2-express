@@ -31,6 +31,8 @@ db.once('open', () => {
   console.log('Connected to MongoDB');
 });
 
-// Routes
-const customerRouter = require('./routes/customer');
-app.use('/customer', customerRouter);
+// Customer router
+app.use('/customer', require('./routes/customer'));
+
+// Product router
+app.use('/product', require('./routes/product'));
