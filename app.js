@@ -34,5 +34,8 @@ db.once('open', () => {
 // Customer router
 app.use('/customer', require('./routes/customer'));
 
+// Order router
+app.use('/order', require('./routes/order'));
+
 // Product router
 app.use('/product', require('./routes/product'));
