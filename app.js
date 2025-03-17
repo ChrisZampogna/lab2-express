@@ -1,19 +1,45 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
-const app = express();
+const swaggerUi = require('swagger-ui-express');
+const swaggerJSDoc = require('swagger-jsdoc');
 
 const PORT = process.env.EXPRESS_PORT;
 const MONGO_URL = process.env.MONGO_URL;
 
+const swaggerOptions = {
+   swaggerDefinition: {
+      openapi: '3.0.0',
+      info: {
+        title: 'My API',
+        version: '1.0.0',
+        description: 'API documentation using Swagger',
+      },
+      servers: [
+        {
+           url: `http://localhost:${PORT}`,
+        },
+      ],
+  components: {
+    securitySchemes: {
+      bearerAuth: {
+         type: 'http',
+         scheme: 'bearer',
+         bearerFormat: 'JWT', 
+      },
+    },
+ },
+   },
+   apis: ['./routes/*.js'], // Path to your API docs
+};
+
+const swaggerDocs = swaggerJSDoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+const app = express();
+
 // Middleware
 app.use(bodyParser.json());
-
-// Hello world at root endpoint
-app.get("/", function(req, res) {
-    return res.send("Hello World");
-});
 
 // Log which port express is listening on
 app.listen(PORT, function(){
