@@ -7,6 +7,9 @@ const app = express();
 const PORT = process.env.EXPRESS_PORT;
 const MONGO_URL = process.env.MONGO_URL;
 
+// Middleware
+app.use(bodyParser.json());
+
 // Hello world at root endpoint
 app.get("/", function(req, res) {
     return res.send("Hello World");
@@ -27,3 +30,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', () => {
   console.log('Connected to MongoDB');
 });
+
+// Routes
+const customerRouter = require('./routes/customer');
+app.use('/customer', customerRouter);
