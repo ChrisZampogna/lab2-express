@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
 
+const app = express();
+
 const PORT = process.env.EXPRESS_PORT;
 const MONGO_URL = process.env.MONGO_URL;
 
@@ -35,8 +37,6 @@ const swaggerOptions = {
 
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-
-const app = express();
 
 // Middleware
 app.use(bodyParser.json());
