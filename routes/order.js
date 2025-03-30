@@ -44,7 +44,7 @@ router.post('/', async (req, res) => {
     async function processOrder() {
       return new Promise(resolve => setTimeout(resolve, 5000))
     }
-    const newEntity = await Entity.create(req.body);
+    const newEntity = await Order.create(req.body);
     await processOrder();
     res.status(201).json({
       "status": "success",
@@ -83,7 +83,7 @@ router.post('/', async (req, res) => {
 */
 router.delete('/:id', async (req, res) => {
   try {
-    await Entity.findByIdAndDelete(req.params.id);
+    await Order.findByIdAndDelete(req.params.id);
     res.json({ "status": "success" });
   } catch (err) {
     res.status(400).json({
