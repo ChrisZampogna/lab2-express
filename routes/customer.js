@@ -78,6 +78,11 @@ router.post('/', async (req, res) => {
 *     summary: Get a list of all customers
 *     requestBody:
 *       required: false
+*     responses:
+*       200:
+*         description: Customers returned
+*       500:
+*         description: Failed to return customers
 */
 router.get('/all', async (req, res) => {
   try {

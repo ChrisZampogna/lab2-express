@@ -3,10 +3,12 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
+const cors = require('cors')
 
 const app = express();
 
-const PORT = process.env.EXPRESS_PORT;
+const CONTAINER_PORT = process.env.CONTAINER_EXPRESS_PORT;
+const HOST_PORT = process.env.HOST_EXPRESS_PORT;
 const MONGO_URL = process.env.MONGO_URL;
 
 const swaggerOptions = {
@@ -19,7 +21,7 @@ const swaggerOptions = {
       },
       servers: [
         {
-           url: `http://localhost:${PORT}`,
+           url: `http://localhost:${HOST_PORT}`,
         },
       ],
   components: {
@@ -35,6 +37,10 @@ const swaggerOptions = {
    apis: ['./routes/*.js'], // Path to your API docs
 };
 
+// CORS support
+app.use(cors())
+
+// Swagger
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
@@ -42,8 +48,8 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use(bodyParser.json());
 
 // Log which port express is listening on
-app.listen(PORT, function(){
-    console.log(`Listening on port ${PORT}`);
+app.listen(CONTAINER_PORT, function(){
+    console.log(`Listening on port ${CONTAINER_PORT}`);
 });
 
 // MongoDB Connection

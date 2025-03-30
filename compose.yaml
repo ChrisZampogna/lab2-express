@@ -13,7 +13,9 @@ services:
       - "9000:3000" 
     environment:
       # Express listens on port 3000 inside the container
-      EXPRESS_PORT: 3000
+      CONTAINER_EXPRESS_PORT: 3000
+      # Port is mapped to 9000 on the host
+      HOST_EXPRESS_PORT: 9000
       # App connects to the Mongo database running in the other container at this URL
       MONGO_URL: mongodb://mongo:27017/
     restart: always
