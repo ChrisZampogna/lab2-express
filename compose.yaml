@@ -9,13 +9,13 @@ services:
       context: ./
       dockerfile: ./Dockerfile
     ports:
-      # Map host port 9000 to container port 3000
-      - "9000:3000" 
+      # Map host port 7000 to container port 4500
+      - "7000:4500" 
     environment:
-      # Express listens on port 3000 inside the container
-      CONTAINER_EXPRESS_PORT: 3000
-      # Port is mapped to 9000 on the host
-      HOST_EXPRESS_PORT: 9000
+      # Express listens on port 4500 inside the container
+      CONTAINER_EXPRESS_PORT: 4500
+      # Port is mapped to 7000 on the host
+      HOST_EXPRESS_PORT: 7000
       # App connects to the Mongo database running in the other container at this URL
       MONGO_URL: mongodb://mongo:27017/
     restart: always
