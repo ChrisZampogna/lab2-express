@@ -103,6 +103,25 @@ router.get('/all', async (req, res) => {
   }
 });
 
+/**
+* @swagger
+* /customer/{id}:
+*   get:
+*     summary: Retrieve a customer by ID
+*     parameters:
+*       - in: path
+*         name: id
+*         schema:
+*           type: string
+*         required: true
+*         description: A unique customer ID
+*         example: "67d76f322943ae70098659b4"
+*     responses:
+*       200:
+*         description: Customer retrieved
+*       400:
+*         description: Failed to retrieve customer
+*/
 router.get('/:id', async (req, res) => {
   try {
     const items = await Customer.findById(req.params.id);
@@ -123,7 +142,31 @@ router.get('/:id', async (req, res) => {
 });
 
 
-// Update route (patch)
+/**
+* @swagger
+* /customer/{id}:
+*   patch:
+*     summary: Update an existing customer
+*     parameters:
+*       - in: path
+*         name: id
+*         schema:
+*           type: string
+*         required: true
+*         description: A unique customer ID
+*         example: "67d76f322943ae70098659b4"
+*     requestBody:
+*       required: true
+*       content:
+*         application/json:
+*           schema:
+*             $ref: '#/components/schemas/customer'
+*     responses:
+*       200:
+*         description: Customer updated
+*       400:
+*         description: Failed to update customer
+*/
 router.patch('/:id', async (req, res) => {
   try {
     const updatedCustomer = await Customer.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -143,7 +186,25 @@ router.patch('/:id', async (req, res) => {
   }
 });
 
-// Delete route (delete)
+/**
+* @swagger
+* /customer/{id}:
+*   delete:
+*     summary: Delete an existing customer
+*     parameters:
+*       - in: path
+*         name: id
+*         schema:
+*           type: string
+*         required: true
+*         description: A unique customer ID
+*         example: "67d76f322943ae70098659b4"
+*     responses:
+*       200:
+*         description: Customer deleted
+*       400:
+*         description: Failed to delete customer
+*/
 router.delete('/:id', async (req, res) => {
   try {
     await Customer.findByIdAndDelete(req.params.id);
