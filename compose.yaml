@@ -1,7 +1,6 @@
 name: lab2-express-js
 
 services:
-
   # Container to running a node app
   node-application:
     container_name: node-application
@@ -27,8 +26,13 @@ services:
   # However, it is running locally
   mongo:
     container_name: mongo
+    volumes:
+      - mongodata:/data/db
     ports:
       # Map host port 27017 (default mongo port) to same container port
       - "27017:27017"
-    image: mongo
+    image: mongo:latest
     restart: always
+
+volumes:
+  mongodata:
