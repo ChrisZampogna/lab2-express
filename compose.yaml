@@ -7,6 +7,7 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
+    #image: cmz5478/express-js-ordering-system
     ports:
       # Map host port 7000 to container port 4500
       - "7000:4500" 
